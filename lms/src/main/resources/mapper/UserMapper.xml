@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mingliang.lms.dao.UserDao">
+	<resultMap id="BaseResultMap" type="com.mingliang.lms.domain.User" >
+	<id column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="user_code" property="userCode" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+		<result column="plant_code" property="plantCode" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="update_date" property="updateDate" jdbcType="DATE" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+		uuid,user_code,passWord,user_name,status,role_code,plant_code,email,create_date,update_date
+	</sql>
+	
+	<select id="queryUsers" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM b_user WHERE 1=1 
+		<if test="userName != null">
+			and user_name like CONCAT('%',#{userName},'%')
+		</if>
+	</select>
+
+</mapper>
